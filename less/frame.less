@@ -1,0 +1,69 @@
+@import "var";
+.picture(){
+  max-width: 100%;
+}
+.pad(){
+  padding-left:@padding;
+  padding-right:@padding;
+}
+.container{
+  &-fuild{
+    display: block;
+    height:auto;
+  }
+  &{
+    display: block;
+    height:auto;
+    margin-left:auto!important;
+    margin-top:auto!important;
+  }
+  & .row , &-fuild .row{
+    display: block;
+    margin-left: - @padding;
+    margin-right: -@padding;
+  }
+  & .row:after , &-fuild .row:after,
+  & .row:before , &-fuild .row:before{
+      content:'';
+      display: block;
+      clear: both;
+      height:0;
+      line-height:0;
+  }
+}
+[class*=col-]{
+  display: block;
+  float:left;
+}
+  .grid(@type,@i:1) when(@i<=@col){
+      .col-@{type}-@{i}{
+          width:@i/@col*100%;
+          .pad();
+      }
+    .grid(@type,@i+1);
+  }
+.grid(xs);
+@media screen and (min-width:@sm){
+  .container{width:@sm - 2 * @padding;}
+  .grid(sm);
+}
+@media screen and (min-width:@md){
+  .container{width:@md - 2 * @padding;}
+  .grid(md);
+}
+@media screen and (min-width:@lg){
+  .container{width:@lg - 2 * @padding;}
+  .grid(lg);
+}
+@media screen and (max-width:@sm){
+  .hidden-xs{display:none;}
+}
+@media screen and (min-width:@sm) and (max-width:@md){
+  .hidden-sm{display:none;}
+}
+@media screen and (min-width:@md) and (max-width:@lg){
+.hidden-md{display:none;}
+}
+@media screen and (min-width:@lg){
+  .hidden-lg{display:none;}
+}
